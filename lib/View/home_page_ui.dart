@@ -310,6 +310,7 @@ class _HomePageUiState extends State<HomePageUi> {
                   Container(
                     height: 60,
                     width: 60,
+                    margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/im.png"),
@@ -375,7 +376,6 @@ class _HomePageUiState extends State<HomePageUi> {
                             left: 17,
                             right: 17,
                             top: 30,
-                            bottom: 10,
                           ),
                           child: ListView.builder(
                             physics: BouncingScrollPhysics(),
