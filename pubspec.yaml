@@ -14,6 +14,13 @@ dependencies:
   msh_checkbox: ^2.0.1
   path: ^1.9.1
   sqflite: ^2.4.2
+  shared_preferences: ^2.5.3
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/appicon.png"
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +32,6 @@ flutter:
   assets:
     - assets/imag.png
     - assets/im.png
+    - assets/splash.png
+    - assets/image.png
+    - assets/appicon.png

@@ -1,11 +1,13 @@
 import 'dart:developer';
-
+import 'package:atodo_app/DataBase/Shared_Preferences.dart';
 import 'package:atodo_app/DataBase/database.dart';
 import 'package:atodo_app/Model/TodoModel.dart';
+import 'package:atodo_app/View/Login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:msh_checkbox/msh_checkbox.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageUi extends StatefulWidget {
   const HomePageUi({super.key});
@@ -32,6 +34,13 @@ class _HomePageUiState extends State<HomePageUi> {
   void initState() {
     super.initState();
     getdata();
+    getsharedData();
+  }
+
+  void getsharedData() async {
+    UserController userControllerobj = UserController();
+    await userControllerobj.getSharedpreferenced();
+    setState(() {});
   }
 
   void getdata() async {
@@ -54,7 +63,7 @@ class _HomePageUiState extends State<HomePageUi> {
 
   Widget floatingactionbotton() {
     return FloatingActionButton.extended(
-      backgroundColor: Color.fromARGB(255, 80, 55, 207),
+      backgroundColor: Color.fromARGB(255, 64, 44, 167),
       onPressed: () {
         showbottomsheetBar(false);
       },
@@ -93,8 +102,44 @@ class _HomePageUiState extends State<HomePageUi> {
       setState(() {});
       clearcontroller();
       Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          dismissDirection: DismissDirection.down,
+          duration: Duration(seconds: 2),
+          backgroundColor: Color.fromARGB(255, 64, 44, 167),
+          content: Text(
+            "Data Added Succesfully",
+            style: GoogleFonts.quicksand(
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      );
     } else {
       Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          dismissDirection: DismissDirection.down,
+          duration: Duration(seconds: 2),
+          backgroundColor: Color.fromARGB(255, 64, 44, 167),
+          content: Text(
+            "Please Enter The Data",
+            style: GoogleFonts.quicksand(
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      );
     }
   }
 
@@ -248,7 +293,7 @@ class _HomePageUiState extends State<HomePageUi> {
                           blurStyle: BlurStyle.outer,
                         ),
                       ],
-                      color: Color.fromARGB(255, 80, 55, 207),
+                      color: Color.fromARGB(255, 64, 44, 167),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
@@ -280,45 +325,83 @@ class _HomePageUiState extends State<HomePageUi> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 40),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(left: 35, top: 10, right: 35),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        "WellCome Back",
+                        "Logout",
                         style: GoogleFonts.quicksand(
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
-                          fontSize: 22,
+                          fontSize: 15,
                         ),
                       ),
-                      Text(
-                        "Shivam",
-                        style: GoogleFonts.quicksand(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30,
-                        ),
+                      SizedBox(width: 8),
+                      GestureDetector(
+                        onTap: () async {
+                          SharedPreferences sharedPreferencesobj =
+                              await SharedPreferences.getInstance();
+                          sharedPreferencesobj.clear();
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return LoginScreen();
+                              },
+                            ),
+                            (route) => false,
+                          );
+                        },
+                        child: Icon(Icons.logout, color: Colors.white),
                       ),
                     ],
                   ),
-                  Container(
-                    height: 60,
-                    width: 60,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/im.png"),
-                        fit: BoxFit.cover,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "WellCome Back",
+                            style: GoogleFonts.quicksand(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 22,
+                            ),
+                          ),
+                          Text(
+                            "Shivam",
+                            style: GoogleFonts.quicksand(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 30,
+                            ),
+                          ),
+                        ],
                       ),
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
+                      Column(
+                        children: [
+                          Container(
+                            height: 60,
+                            width: 60,
+                            margin: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/im.png"),
+                                fit: BoxFit.cover,
+                              ),
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -628,7 +711,7 @@ class _HomePageUiState extends State<HomePageUi> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(
-                  Color.fromARGB(255, 80, 55, 207),
+                  Color.fromARGB(255, 64, 44, 167),
                 ),
               ),
               onPressed: () {
@@ -637,6 +720,24 @@ class _HomePageUiState extends State<HomePageUi> {
                 HelperDatabase().deletetdata(id);
                 Navigator.of(context).pop();
                 setState(() {});
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    dismissDirection: DismissDirection.down,
+                    duration: Duration(seconds: 2),
+                    backgroundColor: Color.fromARGB(255, 64, 44, 167),
+                    content: Text(
+                      "Data Deleted Succefully",
+                      style: GoogleFonts.quicksand(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                );
               },
               child: const Text(
                 "Yes",
