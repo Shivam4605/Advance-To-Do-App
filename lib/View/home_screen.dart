@@ -317,6 +317,94 @@ class _HomePageUiState extends State<HomePageUi> {
     });
   }
 
+  Future showdialogbox(int showdialogindex) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Confirm To Deleted To-Do ?",
+            style: GoogleFonts.quicksand(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          content: Text(
+            "Are you sure you want to delete this To do Task ?",
+            style: GoogleFonts.quicksand(
+              color: Colors.black,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              style: ButtonStyle(
+                shape: WidgetStatePropertyAll(
+                  RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.black12),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                "No",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(width: 5),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                  Color.fromARGB(255, 64, 44, 167),
+                ),
+              ),
+              onPressed: () {
+                int id = tasklist[showdialogindex].id;
+                tasklist.removeAt(showdialogindex);
+                HelperDatabase().deletetdata(id);
+                Navigator.of(context).pop();
+                setState(() {});
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    dismissDirection: DismissDirection.down,
+                    duration: Duration(seconds: 2),
+                    backgroundColor: Color.fromARGB(255, 64, 44, 167),
+                    content: Text(
+                      "Data Deleted Succefully",
+                      style: GoogleFonts.quicksand(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              child: const Text(
+                "Yes",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -662,94 +750,6 @@ class _HomePageUiState extends State<HomePageUi> {
         ),
       ),
       floatingActionButton: floatingactionbotton(),
-    );
-  }
-
-  Future showdialogbox(int showdialogindex) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(
-            "Confirm To Deleted To-Do ?",
-            style: GoogleFonts.quicksand(
-              color: Colors.black,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          content: Text(
-            "Are you sure you want to delete this To do Task ?",
-            style: GoogleFonts.quicksand(
-              color: Colors.black,
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          actions: [
-            ElevatedButton(
-              style: ButtonStyle(
-                shape: WidgetStatePropertyAll(
-                  RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.black12),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                "No",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            SizedBox(width: 5),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(
-                  Color.fromARGB(255, 64, 44, 167),
-                ),
-              ),
-              onPressed: () {
-                int id = tasklist[showdialogindex].id;
-                tasklist.removeAt(showdialogindex);
-                HelperDatabase().deletetdata(id);
-                Navigator.of(context).pop();
-                setState(() {});
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    dismissDirection: DismissDirection.down,
-                    duration: Duration(seconds: 2),
-                    backgroundColor: Color.fromARGB(255, 64, 44, 167),
-                    content: Text(
-                      "Data Deleted Succefully",
-                      style: GoogleFonts.quicksand(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                );
-              },
-              child: const Text(
-                "Yes",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 }
