@@ -18,29 +18,33 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 5), () async {
-      UserController userControllerobj = UserController();
-      await userControllerobj.getSharedpreferenced();
-      if (userControllerobj.isloggedin) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return HomePageUi();
-            },
-          ),
-        );
-      } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return LoginScreen();
-            },
-          ),
-        );
-      }
-      log("isloggedin ${userControllerobj.isloggedin}");
+      navigationscreen();
     });
+  }
+
+  void navigationscreen() async {
+    UserController userControllerobj = UserController();
+    await userControllerobj.getSharedpreferenced();
+    if (userControllerobj.isloggedin) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return HomePageUi();
+          },
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return LoginScreen();
+          },
+        ),
+      );
+    }
+    log("isloggedin ${userControllerobj.isloggedin}");
   }
 
   @override
