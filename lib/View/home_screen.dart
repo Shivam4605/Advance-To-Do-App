@@ -463,7 +463,7 @@ class _HomePageUiState extends State<HomePageUi> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "WellCome Back",
+                            "WellCome Back,",
                             style: GoogleFonts.quicksand(
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
