@@ -19,6 +19,8 @@ class HomePageUi extends StatefulWidget {
 class _HomePageUiState extends State<HomePageUi> {
   List<Todomodel> tasklist = [];
   bool iscompletedcheck = false;
+  int id = -1;
+
   TextEditingController titletextEditingController = TextEditingController();
   TextEditingController descriptiontextEditingController =
       TextEditingController();
@@ -367,7 +369,7 @@ class _HomePageUiState extends State<HomePageUi> {
                 ),
               ),
               onPressed: () {
-                int id = tasklist[showdialogindex].id;
+                id = tasklist[showdialogindex].id;
                 tasklist.removeAt(showdialogindex);
                 HelperDatabase().deletetdata(id);
                 Navigator.of(context).pop();
