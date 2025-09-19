@@ -13,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailtextEditingController = TextEditingController();
   TextEditingController passwordtextEditingController = TextEditingController();
+  TextEditingController usernametextEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 150),
+              SizedBox(height: 110),
               Center(
                 child: Text(
                   "Welcome back",
@@ -35,6 +36,35 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 20),
               Image.asset("assets/image.png"),
               SizedBox(height: 100),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 22, right: 20),
+                    child: Text(
+                      "Username",
+                      style: GoogleFonts.quicksand(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: TextField(
+                  controller: usernametextEditingController,
+                  decoration: InputDecoration(
+                    hintText: "Enter The username",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
               Row(
                 children: [
                   Padding(
@@ -97,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: GestureDetector(
                   onTap: () {
                     Map<String, dynamic> setdata = {
+                      "username": usernametextEditingController.text,
                       "email": emailtextEditingController.text,
                       "password": passwordtextEditingController.text,
                       "isloggedin": true,
@@ -131,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 20),
               Text(
-                "Don’t have an account ?",
+                "Don't have an account ?",
                 style: GoogleFonts.quicksand(
                   color: Colors.black,
                   fontSize: 15,

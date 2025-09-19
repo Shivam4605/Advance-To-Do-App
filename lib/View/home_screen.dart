@@ -19,6 +19,7 @@ class HomePageUi extends StatefulWidget {
 class _HomePageUiState extends State<HomePageUi> {
   List<Todomodel> tasklist = [];
   bool iscompletedcheck = false;
+  String username = "";
   int id = -1;
 
   TextEditingController titletextEditingController = TextEditingController();
@@ -40,8 +41,13 @@ class _HomePageUiState extends State<HomePageUi> {
   }
 
   void getsharedData() async {
-    UserController userControllerobj = UserController();
-    await userControllerobj.getSharedpreferenced();
+    await UserController().getSharedpreferenced();
+    log("data is the : ${UserController().getSharedpreferenced()}");
+    UserController userController = UserController();
+    await userController.getSharedpreferenced();
+    log(userController.username);
+    String name = userController.username;
+    username = name;
     setState(() {});
   }
 
@@ -465,7 +471,7 @@ class _HomePageUiState extends State<HomePageUi> {
                             ),
                           ),
                           Text(
-                            "Shivam",
+                            username,
                             style: GoogleFonts.quicksand(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,

@@ -23,9 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigationscreen() async {
-    UserController userControllerobj = UserController();
-    await userControllerobj.getSharedpreferenced();
-    if (userControllerobj.isloggedin) {
+    bool isloggedin = await UserController().getSharedpreferenced();
+    if (isloggedin) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -44,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
     }
-    log("isloggedin ${userControllerobj.isloggedin}");
+    log("isloggedin ${UserController().isloggedin}");
   }
 
   @override
