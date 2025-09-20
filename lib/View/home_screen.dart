@@ -46,8 +46,7 @@ class _HomePageUiState extends State<HomePageUi> {
     UserController userController = UserController();
     await userController.getSharedpreferenced();
     log(userController.username);
-    String name = userController.username;
-    username = name;
+    username = userController.username;
     setState(() {});
   }
 
