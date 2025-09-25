@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
     }
+
     log("isloggedin ${UserController().isloggedin}");
   }
 
