@@ -25,6 +25,7 @@ class UserController {
     email = sharedPreferences.getString("email") ?? "";
     password = sharedPreferences.getString("password") ?? "";
     isloggedin = sharedPreferences.getBool("isloggedin") ?? false;
+
     return isloggedin;
   }
 }
